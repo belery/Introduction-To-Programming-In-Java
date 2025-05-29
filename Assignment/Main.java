@@ -1,71 +1,97 @@
 class Libraries{
-    static String[] allTitel = new String[100];
-    static int i = 0;
-    public Libraries (){
-        Libraries jiangMengLib = new Libraries();
-        jiangMengLib.addBook("xiyaouji");
-        jiangMengLib.addBook("shuihuzhuang");
-        jiangMengLib.addBook("sanguoyanyi");
-        jiangMengLib.addBook("hongloumeng");
-        jiangMengLib.addBook("hongxing");
+    int i = 0;
+    Book[] books = new Book[20];
 
+    public Libraries (){
+        
     }
 
     public void addBook(String title){
-        Book book = new Book(title);
-        System.out.println("Scuessce to add " + Book.bookName);
-        allTitel[i] = title;
+        books[i] = new Book(title);
+        System.out.println("Scuessce to add " + title);
         i++;
-
     }
 
     public void seekBook(String title){
+        boolean test = false;
         for (int a = 0; a < i; a++){
-            if (allTitel[a] == title){
-                System.out.println("we have " + allTitel[a]);
+            if (books[a].bookName.equals(title)){
+                test = true;
+                break;
             }
+        }
+        if (test) {
+            System.out.println("we have " + title);
+        } else {
+            System.out.println("we don't have " + title);
+        }
+    }
+    public void wantToBorrow(String title){
+        int index = -1;
+        for (int a = 0; a < i; a++){
+            index += 1;
+            if (books[a].bookName.equals(title)){
+                break;
+            }
+        }
+        if (books[index].isBorrowed == false) {
+            System.out.println("you borrow " + title);
+            books[index].isBorrowed = true;
+        } else {
+            System.out.println("the book was be borrowed");
+        }
+    }
+
+    public void wantToReturn(String title){
+        int index = -1;
+        for (int a = 0; a < i; a++){
+            index += 1;
+            if (books[a].bookName.equals(title)){
+                break;
+            }
+        }
+        if (books[index].isBorrowed == true) {
+            System.out.println("you return " + title);
+            books[index].isBorrowed = false;
+        } else {
+            System.out.println(title + "isn't been borrowed");
         }
     }
 }
+
 
 // Created on iPad.
 
 class Book {
 
-    static String bookName;
+    String bookName;
     boolean isBorrowed = false;
-    boolean isReturn = true;
 
     public Book (String name){
         this.bookName = name;
     }
     
-    public void wantToBorrow(String bookName){
-        if (isBorrowed == false && isReturn == true){
-        System.out.println("you borrowed " + bookName);
-        isBorrowed = true;
-        isReturn = false;
-        } else {
-            System.out.println("you can't borrowed is");
-        }
-    }
-
-    
-    public void wantToReturn(String bookName){
-        if (isBorrowed == true && isReturn == false){
-        System.out.println("you return " + bookName);
-        isBorrowed = false;
-        isReturn = true;
-        } else {
-            System.out.println("This book was been return");
-        }
-    }
 }
 
 
 
 public class Main {
     public static void main (String[] arg){
-        Book.wantToBorrow("xiyouji");
+        Libraries jiangLib = new Libraries();
+        jiangLib.addBook("xiyouji");
+        jiangLib.addBook("hongloumeng");
+        jiangLib.addBook("shuihuzhuang");
+        jiangLib.addBook("sangouyanyi");
+        jiangLib.addBook("halibote");
+        jiangLib.seekBook("xiyouji");
+        jiangLib.seekBook("nihao");
+        jiangLib.wantToBorrow("hongloumeng");
+        jiangLib.wantToBorrow("hongloumeng");
+        jiangLib.wantToReturn("xiyouji");
+        jiangLib.wantToReturn("xiyouji");
+        jiangLib.wantToReturn("hongloumeng");
+        jiangLib.wantToReturn("hongloumeng");
+        
+        
     }
 }
